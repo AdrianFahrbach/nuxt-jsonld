@@ -1,10 +1,12 @@
 import { computed } from 'vue';
 import type { JsonLD, JsonLDFunc } from '../types';
 import { useHead } from '@unhead/vue';
+import { Thing } from 'schema-dts';
 
-const isFunc = (json: JsonLD | JsonLDFunc): json is JsonLDFunc => typeof json === 'function';
+const isFunc = <T extends Thing = Thing>(json: JsonLD<T> | JsonLDFunc<T>): json is JsonLDFunc<T> =>
+  typeof json === 'function';
 
-export const useJsonld = (json: JsonLD | JsonLDFunc) => {
+export const useJsonld = <T extends Thing = Thing>(json: JsonLD<T> | JsonLDFunc<T>) => {
   if (!json) {
     return;
   }
